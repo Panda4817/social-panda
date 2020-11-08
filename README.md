@@ -1,6 +1,9 @@
 # NodeJS Social Media Web App
+[![Run on Repl.it](https://repl.it/badge/github/panda4817/social-panda)](https://repl.it/@Panda4817/social-panda)
 
 Part of freeCodeCamp advanced Node and Express challenges. This project uses Pug template engine.
+
+[https://social-panda.panda4817.repl.co](https://social-panda.panda4817.repl.co)
 
 ## Requirements
 

@@ -36,23 +36,24 @@ function filterTags(tag) {
     let hiddenArr = []
     console.log(elementList)
     elementList.forEach((item) => {
-      item.style.display = 'flex'
-      let tags = item.querySelectorAll('.hashtags')
-      console.log(tags)
-      let include = false;
-      tags.forEach((tg) => {
-        if (tg.innerHTML == t || t == 'all') {
-          include = true
-
+      item.style.display = 'flex'   
+      if (t != 'all') {
+        let tags = item.querySelectorAll('.hashtags')
+        console.log(tags)
+        let include = false;
+        tags.forEach((tg) => {
+          if (tg.innerHTML == t) {
+            include = true
+          }
+        })
+        if (include == false) {
+          item.style.display = 'none'
+          hiddenArr.push(item)
         }
-      })
-      if (include == false) {
-        item.style.display = 'none'
-        hiddenArr.push(item)
       }
 
-    })
-    if (hiddenArr.length > 0) {
-      document.querySelector('#showAll').style.display = 'flex'
-    }
+      })
+      if (hiddenArr.length > 0) {
+        document.querySelector('#showAll').style.display = 'flex'
+      }
   }

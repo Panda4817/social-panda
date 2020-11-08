@@ -128,7 +128,7 @@ module.exports = function (app, myDataBase, myPosts) {
   app.route('/auth/github/callback').get(passport.authenticate('github', { failureRedirect: '/', failureFlash: true }), (req, res) => {
     clearErrors(req);
     req.session.user_id = req.user.id
-    res.redirect('/chat');
+    res.redirect('/posts');
   });
 
   app.route('/post')
