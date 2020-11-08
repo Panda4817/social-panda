@@ -1,0 +1,76 @@
+extends layout.pug
+
+block append links
+  link(rel="stylesheet", href="public/emoji.css")
+    
+block content
+  nav.navbar.navbar-dark.bg-dark.navbar-expand-lg
+    div.navbar-brand 🐼 Social Panda
+    button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+    div(class="collapse navbar-collapse justify-content-end:" id="menu")
+      ul(class="navbar-nav ml-auto mt-2 mt-lg-0")
+        li.nav-item
+          a.nav-link(href='/posts') Posts
+        li.nav-item
+          a.nav-link(href='/chat') Chat Room
+        li.nav-item
+          a.nav-link(href='/logout') Logout
+  
+  div.row
+    div.col
+      h2.center#welcome Hello, #{username}
+      div.center.error #{error}
+      p.lead.center Welcome to posts. Posts are saved. Don't spread fake news. Keep it clean.
+  hr
+  div.row.justify-content-around
+    div.col
+      form.form-row.align-items-center(action='/post', method='post')
+        div.col-sm-11.col-10(class="emoji-picker-container")
+          textarea(type="textbox", data-emoji-input="unicode", data-emojiable="true", name='post', class="form-control rounded-pill", placeholder="What are you up to?")
+        div.col-1
+          button(type='submit', class="btn btn-dark rounded-pill")
+            i(class="fas fa-paper-plane")
+  hr
+  div.row.justify-content-around.m-1#posts
+    div.col-12#trending.center.m-1.text-break
+      p.lead Top Ten trending #hashtags
+    
+    div.col-12#showAll.center.m-1(style='display: none;')
+      button.btn.btn-dark.btn-sm(onclick='filterTags("all")') Show all
+      
+    each post in timeline
+      div.card.col-12.m-1(style="z-index: 0" id='id_'+ post._id)
+        form.card-body(method='post')
+          input(type='text', hidden, name='postId', value= post._id)
+          input(type='text', hidden, name='postsername', value= post.username)
+          h5.card-title= post.username
+          h6.card-subtitle.mb-2.text-muted
+            if post.tags != null
+              span
+              each t in post.tags
+                  a(href=t, class='hashtags', onclick='filterTags(this.text)')= t
+          p.card-text= post.text
+          div
+            if post.whoLiked.includes(username)
+              button.btn.btn-dark.btn-sm.m-1.float-left(type='submit', formaction='/unlike')
+                i(class="fas fa-thumbs-up")
+                span.small= post.likes > 0 ? ' ' + post.likes : null
+            else
+              button.btn.btn-dark.btn-sm.m-1.float-left(type='submit', formaction='/like')
+                i(class="fas fa-thumbs-up")
+                span.small= post.likes > 0 ? ' ' + post.likes : null
+            
+            button.btn.btn-dark.btn-sm.m-1.float-left(type='submit', formaction='/delete')
+              i(class="fas fa-trash-alt")
+              span.small= post.username == username ? ' Delete' : ' Report'
+            h6.card-subtitle.text-muted.text-right.m-1.float-right= post.posted_date.toDateString() != new Date().toDateString() ? post.posted_date.toDateString() : post.posted_date.toLocaleTimeString() + ' Today'
+
+block append scripts
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/config.js')
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/util.js')
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/jquery.emojiarea.js')
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/emoji-picker.js')
+  script(src='/public/emoji.js')
+  script(src='/public/posts.js')
+

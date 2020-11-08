@@ -1,0 +1,91 @@
+body {
+  background-image: linear-gradient(
+      0deg,
+      rgba(254, 254, 254, 0.9),
+      rgba(254, 254, 254, 0.9)
+    ),
+    url(https://goldwallpapers.com/uploads/posts/cute-cartoon-panda-wallpaper/cute_cartoon_panda_wallpaper_001.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.error {
+  color: red;
+}
+
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.emoji-picker-container {
+  opacity: 1 !important;
+  position: relative;
+}
+
+.card-forms {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.chat-form {
+  padding: 0.2em !important;
+  margin: 0 !important;
+  border-radius: 5px !important;
+}
+
+.chat-form input {
+  margin-bottom: 0 !important;
+}
+
+form {
+  background: black;
+  opacity: 0.8;
+  padding: 1em 0.5em;
+  border-radius: 1em;
+  color: white;
+}
+form input {
+  margin-bottom: 0.5em;
+}
+.card {
+  background: black;
+  opacity: 0.8;
+  border-radius: 1em;
+  color: white;
+  position: relative;
+}
+#trending a {
+  cursor: pointer;
+}
+
+.notMe {
+  text-align: left;
+  background: black;
+  color: white;
+  opacity: 0.8;
+}
+
+.me {
+  text-align: right;
+  background: grey;
+  color: white;
+  opacity: 0.8;
+  align-self: end;
+}
+
+#messages { 
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+  height: 50vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#messages li { 
+  padding: 5px 10px;
+  margin: 1px;
+}

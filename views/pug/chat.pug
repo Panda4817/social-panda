@@ -1,0 +1,43 @@
+extends layout.pug
+
+block append links
+  link(rel="stylesheet", href="public/emoji.css")
+
+block content
+  nav.navbar.navbar-dark.bg-dark.navbar-expand-lg
+    div.navbar-brand 🐼 Social Panda
+    button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+    div(class="collapse navbar-collapse justify-content-end:" id="menu")
+      ul(class="navbar-nav ml-auto mt-2 mt-lg-0")
+        li.nav-item
+            a.nav-link(href='/posts') Posts
+        li.nav-item
+          a.nav-link(href='/chat') Chat Room
+        li.nav-item
+          a.nav-link(href='/logout') Logout
+  div.row
+    div.col-12
+      h2.center Global Chat Room - 
+        span#user #{user.username}
+      p.lead.center Unlike posts, messages are not saved. Keep it clean.
+        hr
+    .chat.col-12
+      p#num-users.center
+      .chat-box
+        ul#messages
+        form.chat-form.form-row(action='')
+          div.col-sm-11.col-10(class="emoji-picker-container")
+            textarea#m(autocomplete='off' type="textbox" class="form-control rounded-pill" placeholder="Send a message", data-emoji-input="unicode", data-emojiable="true")
+          div.col-1
+            button.btn.btn-dark.rounded-pill(type='submit')
+              i(class='far fa-paper-plane')
+    
+block append scripts
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/config.js')
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/util.js')
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/jquery.emojiarea.js')
+  script(src='https://onesignal.github.io/emoji-picker/lib/js/emoji-picker.js')
+  script(src='/public/emoji.js')
+  script(src='/socket.io/socket.io.js')
+  script(async, defer, src='/public/client.js')

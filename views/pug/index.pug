@@ -1,0 +1,56 @@
+extends layout.pug
+block content
+  div.row
+  div.col
+  h1.center 🐼 Social Panda
+  div.row.justify-content-center
+  div.col
+  p.center.lead#pug-success-message.center #{title}
+  hr
+  h3.center#pug-variable=message
+    
+  if showLogin
+    hr
+    form(action='/login', method='post').center.col-md-6
+      div.error #{error} #{flash}
+      div
+        input(type='text', name='username', class="form-control", placeholder="Username")
+      div
+        input(type='password', name='password', class="form-control", placeholder="Password")
+      div
+        input(type='submit', value='Log In', class="btn btn-dark btn-block")
+  
+  if showSocialAuth
+    hr
+    div.center.col-md-6.m-auto.mt-1
+      a(href='/auth/github' class="btn btn-dark btn-block") 
+        i(class="fab fa-github")
+        span  Login with GitHub
+    
+    div.center.col-md-6.mt-1.m-auto
+      a(href='/auth/facebook' class="btn btn-primary btn-block") 
+        i(class="fab fa-facebook")
+        span  Login with Facebook
+    
+    div.center.col-md-6.mt-1.m-auto
+      a(href='/auth/google' class="btn btn-danger btn-block") 
+        i(class="fab fa-google")
+        span  Login with Google
+        
+  if showRegistration
+    hr
+    h3.center Create a Social Panda account
+    form(action='/register', method='post').center.col-md-6
+      
+      div
+        div.error #{uname}
+        input(type='text', name='username', class="form-control", placeholder="Username")
+      
+      div
+        div.error #{pass}
+        div.small letters AND numbers, minimum 6 characters, no spaces
+        input(type='password', name='password', class="form-control", placeholder="Password")
+      div
+        input(type='submit', value='Register', class="btn btn-dark btn-block")
+
+  
