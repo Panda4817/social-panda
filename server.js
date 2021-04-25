@@ -11,25 +11,23 @@ const GitHubStrategy = require('passport-github').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const bcrypt = require('bcrypt');
-const routes = require('./routes.js');
 const auth = require('./auth.js');
 const flash = require('connect-flash');
 const Filter = require('bad-words');
 const filter = new Filter();
+const routes = require('./routes.js');
 
-const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
 const passportSocketIo = require('passport.socketio');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const URI = process.env.MONGO_URI;
 const store = new MongoStore({ url: URI });
 
+const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 app.set('view engine', 'pug')
-
-fccTesting(app); //For FCC testing purposes
-
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -55,15 +53,16 @@ io.use(
     fail: onAuthorizeFail
   })
 );
+fccTesting(app); //For FCC testing purposes
 
-myDB(async client => {
+myDB(async (client) => {
   const myDataBase = await client.db('database').collection('users');
   const myPosts = await client.db('database').collection('posts');
   routes(app, myDataBase, myPosts);
   auth(app, myDataBase, myPosts);
-
+  
   let currentUsers = 0;
-
+  
   io.on('connection', socket => {
     console.log('A user has connected');
     ++currentUsers;
@@ -90,6 +89,12 @@ myDB(async client => {
   app.use((req, res, next) => {
     res.status(404).type('text').send('Not Found');
   });
+  
+  http.listen(process.env.PORT || 3000, () => {
+    console.log('Listening on port ' + process.env.PORT);
+  }); 
+
+
 
 }).catch(e => {
   app.route('/').get((req, res) => {
@@ -97,9 +102,9 @@ myDB(async client => {
   });
 });
 
+
 function onAuthorizeSuccess(data, accept) {
   console.log('successful connection to socket.io');
-
   accept(null, true);
 }
 
@@ -110,6 +115,4 @@ function onAuthorizeFail(data, message, error, accept) {
 }
 
 
-http.listen(process.env.PORT || 3000, () => {
-  console.log('Listening on port ' + process.env.PORT);
-});
+

@@ -7,9 +7,7 @@ const filter = new Filter();
 const ObjectID = require('mongodb').ObjectID;
  
 
-
 module.exports = function (app, myDataBase, myPosts) {
-
   app.route('/').get((req, res, next) => {
     res.render('pug/index.pug', {
       title: "Can't be a social butterfly at the moment? Be a social panda!",
