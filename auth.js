@@ -5,7 +5,7 @@ const ObjectID = require('mongodb').ObjectID;
 const GitHubStrategy = require('passport-github').Strategy;;
 require('dotenv').config();
 const flash = require('connect-flash');
-const FacebookStrategy = require('passport-facebook').Strategy;
+// const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 
@@ -66,38 +66,38 @@ module.exports = function (app, myDataBase, myPosts) {
       )}
   ));
 
-  passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "https://social-panda.panda4817.repl.co/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
-    myDataBase.findOneAndUpdate(
-      { id: profile.id },
-      {
-        $setOnInsert: {
-          id: profile.id,
-          username: profile.username || profile.displayName,
-          created_on: new Date(),
-          provider: profile.provider || ''
-        },
-        $set: {
-          last_login: new Date()
-        },
-        $inc: {
-          login_count: 1
-        }
-      },
-      { upsert: true, returnOriginal: false },
-      (err, doc) => {
-        console.log(err)
-        console.log(doc)
-        return done(null, doc.value);
-      }
-    )
-  }
-));
+//   passport.use(new FacebookStrategy({
+//     clientID: process.env.FACEBOOK_APP_ID,
+//     clientSecret: process.env.FACEBOOK_APP_SECRET,
+//     callbackURL: "https://social-panda.panda4817.repl.co/auth/facebook/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     console.log(profile);
+//     myDataBase.findOneAndUpdate(
+//       { id: profile.id },
+//       {
+//         $setOnInsert: {
+//           id: profile.id,
+//           username: profile.username || profile.displayName,
+//           created_on: new Date(),
+//           provider: profile.provider || ''
+//         },
+//         $set: {
+//           last_login: new Date()
+//         },
+//         $inc: {
+//           login_count: 1
+//         }
+//       },
+//       { upsert: true, returnOriginal: false },
+//       (err, doc) => {
+//         console.log(err)
+//         console.log(doc)
+//         return done(null, doc.value);
+//       }
+//     )
+//   }
+// ));
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
