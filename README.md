@@ -3,7 +3,7 @@
 
 Part of freeCodeCamp advanced Node and Express challenges. This project uses Pug template engine.
 
-[https://social-panda.panda4817.repl.co](https://social-panda.panda4817.repl.co)
+[https://social-panda.kmunton.dev](https://social-panda.panda4817.repl.co)
 
 ## Requirements
 

@@ -37,7 +37,7 @@ module.exports = function (app, myDataBase, myPosts) {
   passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "https://social-panda.panda4817.repl.co/auth/github/callback"
+    callbackURL: "https://social-panda.kmunton.dev/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
       console.log(profile);
@@ -102,7 +102,7 @@ module.exports = function (app, myDataBase, myPosts) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://social-panda.panda4817.repl.co/auth/google/callback"
+    callbackURL: "https://social-panda.kmunton.dev/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     console.log(profile);
